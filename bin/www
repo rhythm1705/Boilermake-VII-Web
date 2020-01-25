@@ -16,16 +16,16 @@ const path = require("path");
 var port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
 
+// Anything that doesn't match the above, send back index.html
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "/vendor-client/build/index.html"));
+});
+
 /**
  * Create HTTP server.
  */
 
 var server = http.createServer(app);
-
-// Anything that doesn't match the above, send back index.html
-server.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "/vendor-client/build/index.html"));
-});
 
 /**
  * Listen on provided port, on all network interfaces.

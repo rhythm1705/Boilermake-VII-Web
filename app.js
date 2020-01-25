@@ -13,7 +13,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 
 // Importing routes
-const indexRouter = require("./routes/api/index");
+const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/api/users");
 const vendorsRouter = require("./routes/api/vendors");
 const itemsRouter = require("./routes/api/items");
@@ -61,7 +61,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-app.use("/api", indexRouter);
+app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/vendors", vendorsRouter);
 app.use("/api/items", itemsRouter);
