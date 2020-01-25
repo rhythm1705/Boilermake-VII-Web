@@ -8,7 +8,7 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
-const cors = require("cors");
+//const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 
@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 // CORS policy
-app.use(cors());
+//app.use(cors());
 
 // Bodyparser middleware
 app.use(
