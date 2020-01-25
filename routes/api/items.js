@@ -31,6 +31,19 @@ router.get("/", (req, res, next) => {
 		.catch(next);
 });
 
+// Get all items by ids
+router.get("/", (req, res, next) => {
+	let items = [];
+	req.body.itemIds.forEach(id => {
+		Item.findById(req.params.id)
+			.then(item => {
+				items.push(item);
+			})
+			.catch(next);
+	});
+	res.send(items);
+});
+
 // Get a item by id
 router.get("/:id", (req, res, next) => {
 	Item.findById(req.params.id)

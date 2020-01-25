@@ -22,6 +22,11 @@ const OrderSchema = new Schema({
 	items: {
 		type: [ItemPriceSchema],
 		required: true
+	},
+	vendor: {
+		type: ObjectId,
+		ref: "Vendor",
+		required: true
 	}
 });
 module.exports = Order = mongoose.model("orders", OrderSchema);
