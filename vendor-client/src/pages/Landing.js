@@ -13,7 +13,10 @@ function Landing() {
 	return (
 		<Centered>
 			<HeadingLevel>
-				<Heading>Hi there! Welocme to the Vendor Client!</Heading>
+				<Heading>
+					Hi there! Welcome to the Vendor Client! We hope you get a
+					lot of orders!
+				</Heading>
 			</HeadingLevel>
 			<HeadingLevel>
 				<Heading styleLevel={6}>BOILERMAKE 7 Project</Heading>

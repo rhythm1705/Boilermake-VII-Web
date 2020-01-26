@@ -1,4 +1,4 @@
-import React, { useSelector } from "react";
+import React from "react";
 
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
@@ -14,6 +14,7 @@ import {
 } from "react-router-dom";
 
 import { Provider } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import store from "./store";
 
 import jwt_decode from "jwt-decode";
@@ -54,7 +55,7 @@ function PrivateRoute({ component: Component, ...rest }) {
 		<Route
 			{...rest}
 			render={props =>
-				auth.isAuthenticated === true ? (
+				auth.isAuthenticated ? (
 					<Component {...props} />
 				) : (
 					<Redirect to="/login" />
@@ -84,7 +85,7 @@ function App() {
 								exact
 								path="/dashboard"
 								component={Dashboard}
-							/>
+							></PrivateRoute>
 						</Switch>
 					</Router>
 				</BaseProvider>
