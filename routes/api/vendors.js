@@ -145,7 +145,7 @@ router.get("/:id/menu", (req, res, next) => {
 // @route GET api/vendors/menu by name
 // @desc Get the vendor's menu
 router.get("/menu/:name/", (req, res, next) => {
-	console.log("VENDOR's menu", req);
+	console.log("VENDOR's menu", req.body);
 	Vendor.find({ name: req.params.name })
 		.then(vendor => {
 			res.send(vendor.menu);
