@@ -139,16 +139,56 @@ router.get("/:id/menu", (req, res, next) => {
 	let arr = [];
 	Vendor.findById(req.params.id)
 		.then(vendor => {
-			// res.send(vendor.menu);
-			vendor.menu.forEach(item => {
-				Item.findById(item).then(menuItem => {
-					arr.push(menuItem);
+			console.log(vendor.menu);
+			vendor.menu.forEach(async item => {
+				let promise = new Promise(function(resolve, reject) {
+					Item.findById(item).then(menuItem => {
+						return resolve(menuItem);
+					});
+				});
+				promise.then(res => {
+					console.log("resd", res);
+					arr.push(res);
 				});
 			});
-			res.send({ items: arr });
+			setTimeout(() => res.send({ items: arr }), 3000);
 		})
 		.catch(next);
 });
+
+// router.get("/:id/menu", (req, res, next) => {
+// 	let arr = [];
+// 	Vendor.findById(req.params.id)
+// 		.then(async vendor => {
+// 			console.log(vendor.menu);
+// 			let arr = await vendor.menu.map(async item => {
+// 				Item.findById(item).then(res => {
+// 					return res;
+// 				});
+// 			});
+// 			console.log(arr);
+// 		})
+// 		.catch(next);
+// });
+
+// router.get("/:id/menu", (req, res, next) => {
+// 	let arr = [];
+// 	Vendor.findById(req.params.id)
+// 		.then(async vendor => {
+// 			console.log(vendor.menu);
+// 			for (let i = 0; i < vendor.menu.length; i++) {
+// 				Item.findById(vendor.menu[i]).then(res => arr.push(res));
+// 				if (arr.length === 0) {
+// 					i = 0;
+// 				} else {
+// 					console.log("arr", arr);
+// 				}
+// 			}
+// 			console.log(arr);
+// 			res.send({ item: arr });
+// 		})
+// 		.catch(next);
+// });
 
 // @route GET api/vendors/menu by name
 // @desc Get the vendor's menu
