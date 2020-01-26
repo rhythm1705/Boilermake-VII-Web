@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "baseui/button";
 import {
 	Modal,
@@ -88,47 +88,47 @@ function Scan(props) {
 	);
 }
 function CurrentOrders() {
-    const [newOrder, setNewOrder] = useState();
-    const [orderIds, setOrderIds] = useState(null);
-    const [orders, setOrders] = useState([]);
+	const [newOrder, setNewOrder] = useState();
+	const [orderIds, setOrderIds] = useState(null);
+	const [orders, setOrders] = useState([]);
 	const [css] = useStyletron();
 	const [isOpen, setIsOpen] = React.useState(false);
 	const getNewOrder = value => {
 		setNewOrder(value);
 	};
-    console.log("newOrder", newOrder);
-    const getOrderIds = () => {
-		axios
-			.get("/api/vendors/" + auth.user.id + "/menu")
-			.then(res => {
-				setItemIds(res.data);
-			})
-			.catch(err => {
-				console.log("err", err);
-			});
+	console.log("newOrder", newOrder);
+	const getOrderIds = () => {
+		// axios
+		// 	.get("/api/vendors/" + auth.user.id + "/menu")
+		// 	.then(res => {
+		// 		setItemIds(res.data);
+		// 	})
+		// 	.catch(err => {
+		// 		console.log("err", err);
+		// 	});
 	};
 
 	useEffect(() => {
-		const getMenuItems = () => {
-			axios
-				.post("/api/items/menu", {
-					itemIds: itemIds
-				})
-				.then(res => {
-					console.log("Items in menu", res.data);
-					setItems(res.data);
-				})
-				.catch(err => {
-					console.log("err", err);
-				});
-		};
-		if (itemIds === null) {
-			getItemIds();
-		} else if (items.length !== itemIds.length) {
-			console.log("Fetching Menu", items.length, itemIds.length);
-			getMenuItems();
-		}
-	}, [itemIds, getItemIds, items]);
+		// const getMenuItems = () => {
+		// 	axios
+		// 		.post("/api/items/menu", {
+		// 			itemIds: itemIds
+		// 		})
+		// 		.then(res => {
+		// 			console.log("Items in menu", res.data);
+		// 			setItems(res.data);
+		// 		})
+		// 		.catch(err => {
+		// 			console.log("err", err);
+		// 		});
+		// };
+		// if (itemIds === null) {
+		// 	getItemIds();
+		// } else if (items.length !== itemIds.length) {
+		// 	console.log("Fetching Menu", items.length, itemIds.length);
+		// 	getMenuItems();
+		// }
+	}, [orderIds, getOrderIds, orders]);
 	return (
 		<>
 			<Button onClick={() => setIsOpen(true)}>Scan</Button>
