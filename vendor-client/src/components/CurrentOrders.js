@@ -13,7 +13,56 @@ import Check from "baseui/icon/check";
 import ChevronRight from "baseui/icon/chevron-right";
 import { ListItem, ListItemLabel } from "baseui/list";
 import { useStyletron } from "baseui";
+import axios from "axios";
+import { useSelector } from "react-redux";
 import QrReader from "react-qr-reader";
+
+function Order(props) {
+	const auth = useSelector(state => state.auth);
+	const removeOrder = async () => {
+		await axios
+			.delete("/api/items/" + props.id)
+			.then(res => {
+				console.log("deleted item", res);
+			})
+			.catch(err => {
+				console.log("err", err);
+			});
+		await axios
+			.patch("api/vendors/remove/" + auth.user.id, {
+				item: props.id
+			})
+			.then(res => {
+				console.log("remove item from vendor menu", res.data);
+			})
+			.catch(err => {
+				console.log("err", err);
+			});
+		// props.removeOrder();
+	};
+	return (
+		<ListItem
+			endEnhancer={() => (
+				<>
+					<Button
+						shape="round"
+						size="compact"
+						kind="secondary"
+						onClick={removeOrder}
+					>
+						<Check />
+					</Button>
+				</>
+			)}
+		>
+			<ListItemLabel
+				description={"$ " + parseFloat(props.price).toFixed(2) / 100}
+			>
+				{props.name}
+			</ListItemLabel>
+		</ListItem>
+	);
+}
 
 function Scan(props) {
 	const [result, setResult] = useState("No Result");
