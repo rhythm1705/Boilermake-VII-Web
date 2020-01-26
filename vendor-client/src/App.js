@@ -8,13 +8,11 @@ import {
 	BrowserRouter as Router,
 	Route,
 	Switch,
-	Redirect,
-	useHistory,
-	useLocation
+	Redirect
 } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import store from "./store";
 
 import jwt_decode from "jwt-decode";

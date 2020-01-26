@@ -16,7 +16,7 @@ const User = require("../../models/User");
 // @desc Register user
 // @access Public
 router.post("/register", (req, res) => {
-	console.log("LOGGIN", req.body);
+	console.log("signing UP", req.body);
 	// Form validation
 	const { errors, isValid } = validateRegisterInput(req.body);
 	// Check validation
@@ -52,6 +52,7 @@ router.post("/register", (req, res) => {
 // @desc Login user and return JWT token
 // @access Public
 router.post("/login", (req, res) => {
+	console.log("loggin IN", req.body);
 	// Form validation
 	const { errors, isValid } = validateLoginInput(req.body);
 	// Check validation
@@ -64,7 +65,9 @@ router.post("/login", (req, res) => {
 	User.findOne({ email }).then(user => {
 		// Check if user exists
 		if (!user) {
-			return res.status(404).json({ error: "Email not found" });
+			return res.status(404).json({
+				error: "Email not found"
+			});
 		}
 		// Check password
 		bcrypt.compare(password, user.password).then(isMatch => {
@@ -74,7 +77,8 @@ router.post("/login", (req, res) => {
 				const payload = {
 					id: user.id,
 					name: user.name,
-					email: user.email
+					email: user.email,
+					orders: user.orders
 				};
 				// Sign token
 				jwt.sign(
@@ -91,7 +95,9 @@ router.post("/login", (req, res) => {
 					}
 				);
 			} else {
-				return res.status(400).json({ error: "Password incorrect" });
+				return res.status(400).json({
+					error: "Password incorrect"
+				});
 			}
 		});
 	});

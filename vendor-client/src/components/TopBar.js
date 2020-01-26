@@ -6,25 +6,47 @@ import {
 	StyledNavigationItem
 } from "baseui/header-navigation";
 import { StyledLink } from "baseui/link";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Button } from "baseui/button";
+import { Link } from "react-router-dom";
+
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../actions/authActions";
 
 function TopBar() {
+	const auth = useSelector(state => state.auth);
+	const dispatch = useDispatch();
+
 	return (
 		<HeaderNavigation>
-			<StyledNavigationList $align={ALIGN.left}>
+			<StyledNavigationList $align={ALIGN.center}>
 				<StyledNavigationItem>
 					<Link to="/">Our App</Link>
 				</StyledNavigationItem>
 			</StyledNavigationList>
 			<StyledNavigationList $align={ALIGN.center} />
-			<StyledNavigationList $align={ALIGN.center}>
-				<StyledNavigationItem>
-					<StyledLink href="/register">Register</StyledLink>
-				</StyledNavigationItem>
-				<StyledNavigationItem>
-					<StyledLink href="/login">Login</StyledLink>
-				</StyledNavigationItem>
-			</StyledNavigationList>
+
+			{auth.isAuthenticated ? (
+				<StyledNavigationList $align={ALIGN.center}>
+					<StyledNavigationItem>
+						<Button
+							onClick={() => {
+								dispatch(logoutUser());
+							}}
+						>
+							Logout
+						</Button>
+					</StyledNavigationItem>
+				</StyledNavigationList>
+			) : (
+				<StyledNavigationList $align={ALIGN.center}>
+					<StyledNavigationItem>
+						<StyledLink href="/register">Register</StyledLink>
+					</StyledNavigationItem>
+					<StyledNavigationItem>
+						<StyledLink href="/login">Login</StyledLink>
+					</StyledNavigationItem>
+				</StyledNavigationList>
+			)}
 		</HeaderNavigation>
 	);
 }

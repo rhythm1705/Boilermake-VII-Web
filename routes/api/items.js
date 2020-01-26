@@ -32,16 +32,14 @@ router.get("/", (req, res, next) => {
 });
 
 // Get all items by ids
-router.get("/", (req, res, next) => {
-	let items = [];
-	req.body.itemIds.forEach(id => {
-		Item.findById(req.params.id)
-			.then(item => {
-				items.push(item);
-			})
-			.catch(next);
-	});
-	res.send(items);
+router.post("/menu", async (req, res, next) => {
+	Item.find()
+		.where("_id")
+		.in(req.body.itemIds)
+		.then(items => {
+			res.send(items);
+		})
+		.catch(next);
 });
 
 // Get a item by id

@@ -1,24 +1,30 @@
 import * as React from "react";
-import { styled } from "baseui";
-import { Heading, HeadingLevel } from "baseui/heading";
+import { Tabs, Tab } from "baseui/tabs";
+import CurrentOrders from "../components/CurrentOrders";
+import Menu from "../components/Menu";
 
-const Centered = styled("div", {
-	display: "block",
-	justifyContent: "center",
-	alignItems: "center",
-	height: "100%"
-});
+import { useSelector } from "react-redux";
 
 function Dashboard() {
+	const [activeKey, setActiveKey] = React.useState("0");
+	const auth = useSelector(state => state.auth);
+	console.log("Vendor Data: ", auth);
 	return (
-		<Centered>
-			<HeadingLevel>
-				<Heading>Hi there! Welocme to the Vendor Client!</Heading>
-			</HeadingLevel>
-			<HeadingLevel>
-				<Heading styleLevel={6}>BOILERMAKE 7 Project</Heading>
-			</HeadingLevel>
-		</Centered>
+		<Tabs
+			onChange={({ activeKey }) => {
+				setActiveKey(activeKey);
+			}}
+			activeKey={activeKey}
+		>
+			<Tab title="Current Orders">
+				<CurrentOrders />
+			</Tab>
+			<Tab title="Menu">
+				<Menu />
+			</Tab>
+			<Tab title="Order History">Coming Soon!</Tab>
+			<Tab title="Settings">Under Construction.</Tab>
+		</Tabs>
 	);
 }
 

@@ -20,7 +20,19 @@ const OrderSchema = new Schema({
 		required: true
 	},
 	items: {
-		type: [ItemPriceSchema],
+		type: [
+			{
+				item: {
+					type: ObjectId,
+					ref: "Item",
+					required: true
+				},
+				quantity: {
+					type: Number,
+					default: 1
+				}
+			}
+		],
 		required: true
 	},
 	vendor: {

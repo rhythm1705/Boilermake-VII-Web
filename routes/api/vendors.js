@@ -72,7 +72,8 @@ router.post("/login", (req, res) => {
 				const payload = {
 					id: vendor.id,
 					name: vendor.name,
-					email: vendor.email
+					email: vendor.email,
+					menu: vendor.menu
 				};
 				// Sign token
 				jwt.sign(
@@ -101,10 +102,11 @@ router.patch("/:id/add", (req, res, next) => {
 	Vendor.findById(req.params.id)
 		.then(vendor => {
 			const itemId = req.body.item;
-			if (itemId && !vendor.items.includes(itemId)) {
-				vendor.items.push(itemId);
+			if (itemId && !vendor.menu.includes(itemId)) {
+				vendor.menu.push(itemId);
 			}
-			vendor.save()
+			vendor
+				.save()
 				.then(vendor => res.json(vendor))
 				.catch(err => console.log(err));
 		})
@@ -122,11 +124,21 @@ router.patch("/remove/:id", (req, res, next) => {
 					return id != itemId;
 				});
 			}
-			vendor.save()
+			vendor
+				.save()
 				.then(vendor => res.json(vendor))
 				.catch(err => console.log(err));
 		})
 		.catch(next);
 });
 
+// @route GET api/vendors/menu
+// @desc Get the vendor's menu
+router.get("/:id/menu", (req, res, next) => {
+	Vendor.findById(req.params.id)
+		.then(vendor => {
+			res.send(vendor.menu);
+		})
+		.catch(next);
+});
 module.exports = router;

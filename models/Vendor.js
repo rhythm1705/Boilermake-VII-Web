@@ -21,6 +21,10 @@ const VendorSchema = new Schema({
 		type: [ObjectId],
 		ref: "Item"
 	},
+	currentOrders: {
+		type: [ObjectId],
+		ref: "Order"
+	},
 	date: {
 		type: Date,
 		default: Date.now
