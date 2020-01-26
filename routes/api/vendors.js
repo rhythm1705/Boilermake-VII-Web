@@ -132,7 +132,17 @@ router.patch("/remove/:id", (req, res, next) => {
 		.catch(next);
 });
 
-// @route GET api/vendors/menu
+// @route GET api/vendors/menu by id
+// @desc Get the vendor's menu
+router.get("/:id/menu", (req, res, next) => {
+	Vendor.findById(req.params.id)
+		.then(vendor => {
+			res.send(vendor.menu);
+		})
+		.catch(next);
+});
+
+// @route GET api/vendors/menu by name
 // @desc Get the vendor's menu
 router.get("/:name/menu", (req, res, next) => {
 	Vendor.find({ name: req.params.name })

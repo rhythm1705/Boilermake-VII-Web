@@ -88,13 +88,47 @@ function Scan(props) {
 	);
 }
 function CurrentOrders() {
-	const [newOrder, setNewOrder] = useState();
+    const [newOrder, setNewOrder] = useState();
+    const [orderIds, setOrderIds] = useState(null);
+    const [orders, setOrders] = useState([]);
 	const [css] = useStyletron();
 	const [isOpen, setIsOpen] = React.useState(false);
 	const getNewOrder = value => {
 		setNewOrder(value);
 	};
-	console.log("newOrder", newOrder);
+    console.log("newOrder", newOrder);
+    const getOrderIds = () => {
+		axios
+			.get("/api/vendors/" + auth.user.id + "/menu")
+			.then(res => {
+				setItemIds(res.data);
+			})
+			.catch(err => {
+				console.log("err", err);
+			});
+	};
+
+	useEffect(() => {
+		const getMenuItems = () => {
+			axios
+				.post("/api/items/menu", {
+					itemIds: itemIds
+				})
+				.then(res => {
+					console.log("Items in menu", res.data);
+					setItems(res.data);
+				})
+				.catch(err => {
+					console.log("err", err);
+				});
+		};
+		if (itemIds === null) {
+			getItemIds();
+		} else if (items.length !== itemIds.length) {
+			console.log("Fetching Menu", items.length, itemIds.length);
+			getMenuItems();
+		}
+	}, [itemIds, getItemIds, items]);
 	return (
 		<>
 			<Button onClick={() => setIsOpen(true)}>Scan</Button>
@@ -109,6 +143,17 @@ function CurrentOrders() {
 			>
 				<Scan newOrder={getNewOrder}></Scan>
 			</Modal>
+			{orders.map(order => {
+				return (
+					<Order
+						name={order.name}
+						price={order.price}
+						key={order._id}
+						id={order._id}
+						deleteOrder={getOrderIds}
+					></Order>
+				);
+			})}
 		</>
 	);
 }
