@@ -68,7 +68,7 @@ router.get("/", (req, res, next) => {
 
 // Get all orders by ids
 router.post("/user", (req, res, next) => {
-	console.log("ALL orders of a user", req);
+	console.log("ALL orders of a user", req.body);
 	let orders = [];
 	req.body.orderIds.forEach(id => {
 		Order.findById(id)

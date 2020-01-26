@@ -68,6 +68,11 @@ app.use("/api/vendors", vendorsRouter);
 app.use("/api/items", itemsRouter);
 app.use("/api/orders", ordersRouter);
 
+// Anything that doesn't match the above, send back index.html
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "/vendor-client/build/index.html"));
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
 	next(createError(404));
