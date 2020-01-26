@@ -77,9 +77,13 @@ router.post("/user", async (req, res, next) => {
 			})
 			.catch(next);
 	});
-	if (orders.length === req.body.orders) {
-		res.send({ orders: orders });
-	}
+	setTimeout(
+		() =>
+			res.send({
+				orders: orders
+			}),
+		3000
+	);
 });
 
 // Get a order by id
