@@ -134,8 +134,8 @@ router.patch("/remove/:id", (req, res, next) => {
 
 // @route GET api/vendors/menu
 // @desc Get the vendor's menu
-router.get("/:id/menu", (req, res, next) => {
-	Vendor.findById(req.params.id)
+router.get("/:name/menu", (req, res, next) => {
+	Vendor.find({ name: req.params.name })
 		.then(vendor => {
 			res.send(vendor.menu);
 		})
