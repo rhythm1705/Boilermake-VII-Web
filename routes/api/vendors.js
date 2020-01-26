@@ -135,9 +135,16 @@ router.patch("/remove/:id", (req, res, next) => {
 // @route GET api/vendors/menu by id
 // @desc Get the vendor's menu
 router.get("/:id/menu", (req, res, next) => {
+	let arr = [];
 	Vendor.findById(req.params.id)
 		.then(vendor => {
-			res.send(vendor.menu);
+			// res.send(vendor.menu);
+			vendor.menu.forEach(item => {
+				item.findById(item).then(menuItem => {
+					arr.push(menuItem);
+				});
+			});
+			res.send({ items: arr });
 		})
 		.catch(next);
 });

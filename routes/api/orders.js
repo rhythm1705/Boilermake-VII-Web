@@ -67,17 +67,17 @@ router.get("/", (req, res, next) => {
 });
 
 // Get all orders by ids
-router.post("/user", (req, res, next) => {
+router.post("/user", async (req, res, next) => {
 	console.log("ALL orders of a user", req.body.orders);
 	let orders = [];
-	req.body.orders.forEach(id => {
+	await req.body.orders.forEach(id => {
 		Order.findById(id)
 			.then(order => {
 				orders.push(order);
 			})
 			.catch(next);
 	});
-	res.send(orders);
+	res.send({ orders: orders });
 });
 
 // Get a order by id
