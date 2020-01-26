@@ -10,18 +10,18 @@ function Dashboard() {
 	const [activeKey, setActiveKey] = React.useState("0");
 	const auth = useSelector(state => state.auth);
 	console.log("Vendor Data: ", auth);
-	// axios
-	// 	.post("/api/orders/", {
-	// 		title: "Super Lunch",
-	// 		items: [{ item: "5e2d01346a58ca5c2cc11ab6", quantity: 10 }],
-	// 		vendor: "5e2cf42d72d23f508efe9ea9"
-	// 	})
-	// 	.then(res => {
-	// 		console.log("new order ", res.data);
-	// 	})
-	// 	.catch(err => {
-	// 		console.log("err", err);
-	// 	});
+	axios
+		.post("/api/orders/user", {
+			title: "Super Lunch",
+			items: [{ item: "5e2d01346a58ca5c2cc11ab6", quantity: 10 }],
+			vendor: "5e2cf42d72d23f508efe9ea9"
+		})
+		.then(res => {
+			console.log("new order ", res.data);
+		})
+		.catch(err => {
+			console.log("err", err);
+		});
 	return (
 		<Tabs
 			onChange={({ activeKey }) => {

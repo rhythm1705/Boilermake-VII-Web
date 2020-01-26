@@ -68,8 +68,9 @@ function Scan(props) {
 	);
 }
 function CurrentOrders() {
+	const auth = useSelector(state => state.auth);
 	const [newOrder, setNewOrder] = useState();
-	const [orderIds, setOrderIds] = useState(null);
+	// const [orderIds, setOrderIds] = useState(null);
 	const [orders, setOrders] = useState([]);
 	const [css] = useStyletron();
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -89,14 +90,12 @@ function CurrentOrders() {
 	};
 
 	useEffect(() => {
-		// const getMenuItems = () => {
+		// const getCurrentOrders = () => {
 		// 	axios
-		// 		.post("/api/items/menu", {
-		// 			itemIds: itemIds
-		// 		})
+		// 		.get("/api/vendors/" + auth.user.id + "/currentOrders")
 		// 		.then(res => {
-		// 			console.log("Items in menu", res.data);
-		// 			setItems(res.data);
+		// 			console.log("Current Orders", res.data);
+		// 			setOrders(res.data);
 		// 		})
 		// 		.catch(err => {
 		// 			console.log("err", err);
@@ -106,9 +105,9 @@ function CurrentOrders() {
 		// 	getItemIds();
 		// } else if (items.length !== itemIds.length) {
 		// 	console.log("Fetching Menu", items.length, itemIds.length);
-		// 	getMenuItems();
+		// 	getCurrentOrders();
 		// }
-	}, [orderIds, getOrderIds, orders]);
+	}, [getOrderIds, orders]);
 	return (
 		<>
 			<Button onClick={() => setIsOpen(true)}>Scan</Button>
