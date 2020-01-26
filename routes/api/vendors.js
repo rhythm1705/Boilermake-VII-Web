@@ -11,6 +11,7 @@ const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 // Load Vendor model
 const Vendor = require("../../models/Vendor");
+const Item = require("../../models/Item");
 
 // @route POST api/vendors/register
 // @desc Register Vendor
@@ -140,7 +141,7 @@ router.get("/:id/menu", (req, res, next) => {
 		.then(vendor => {
 			// res.send(vendor.menu);
 			vendor.menu.forEach(item => {
-				item.findById(item).then(menuItem => {
+				Item.findById(item).then(menuItem => {
 					arr.push(menuItem);
 				});
 			});

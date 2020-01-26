@@ -77,7 +77,9 @@ router.post("/user", async (req, res, next) => {
 			})
 			.catch(next);
 	});
-	res.send({ orders: orders });
+	if (orders.length === req.body.orders) {
+		res.send({ orders: orders });
+	}
 });
 
 // Get a order by id
