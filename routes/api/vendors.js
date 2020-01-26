@@ -151,7 +151,7 @@ router.get("/:id/menu", (req, res, next) => {
 					arr.push(res);
 				});
 			});
-			setTimeout(() => res.send({ items: arr }), 3000);
+			setTimeout(() => res.send(arr), 3000);
 		})
 		.catch(next);
 });

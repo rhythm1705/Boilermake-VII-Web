@@ -21,24 +21,13 @@ function Order(props) {
 	const auth = useSelector(state => state.auth);
 	const removeOrder = async () => {
 		await axios
-			.delete("/api/items/" + props.id)
+			.delete("/api/orders/" + props.id)
 			.then(res => {
-				console.log("deleted item", res);
+				console.log("deleted order", res);
 			})
 			.catch(err => {
 				console.log("err", err);
 			});
-		await axios
-			.patch("api/vendors/remove/" + auth.user.id, {
-				item: props.id
-			})
-			.then(res => {
-				console.log("remove item from vendor menu", res.data);
-			})
-			.catch(err => {
-				console.log("err", err);
-			});
-		// props.removeOrder();
 	};
 	return (
 		<ListItem

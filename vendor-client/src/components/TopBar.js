@@ -20,7 +20,7 @@ function TopBar() {
 		<HeaderNavigation>
 			<StyledNavigationList $align={ALIGN.center}>
 				<StyledNavigationItem>
-					<Link to="/">Our App</Link>
+					<Link to="/">VENDOR CLIENT</Link>
 				</StyledNavigationItem>
 			</StyledNavigationList>
 			<StyledNavigationList $align={ALIGN.center} />
