@@ -58,7 +58,7 @@ function Order(props) {
 			<ListItemLabel
 				description={"$ " + parseFloat(props.price).toFixed(2) / 100}
 			>
-				{props.name}
+				{props.title}
 			</ListItemLabel>
 		</ListItem>
 	);
