@@ -71,7 +71,7 @@ router.get("/user", (req, res, next) => {
 	console.log("ALL orders of a user", req);
 	let orders = [];
 	req.body.orderIds.forEach(id => {
-		Order.findById(req.params.id)
+		Order.findById(id)
 			.then(order => {
 				orders.push(order);
 			})
