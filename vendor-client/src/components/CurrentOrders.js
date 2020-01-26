@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "baseui/button";
-import {
-	Modal,
-	ModalHeader,
-	ModalBody,
-	ModalFooter,
-	ModalButton,
-	SIZE,
-	ROLE
-} from "baseui/modal";
+import { Modal, SIZE, ROLE } from "baseui/modal";
 import Check from "baseui/icon/check";
-import ChevronRight from "baseui/icon/chevron-right";
 import { ListItem, ListItemLabel } from "baseui/list";
 import { useStyletron } from "baseui";
 import axios from "axios";

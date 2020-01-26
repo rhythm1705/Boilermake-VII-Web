@@ -12,6 +12,7 @@ const validateLoginInput = require("../../validation/login");
 // Load Vendor model
 const Vendor = require("../../models/Vendor");
 const Item = require("../../models/Item");
+const Order = require("../../models/Order");
 
 // @route POST api/vendors/register
 // @desc Register Vendor
@@ -144,6 +145,29 @@ router.get("/:id/menu", (req, res, next) => {
 				let promise = new Promise(function(resolve, reject) {
 					Item.findById(item).then(menuItem => {
 						return resolve(menuItem);
+					});
+				});
+				promise.then(res => {
+					console.log("resd", res);
+					arr.push(res);
+				});
+			});
+			setTimeout(() => res.send({ items: arr }), 3000);
+		})
+		.catch(next);
+});
+
+// @route GET api/vendors/currentOrders by id
+// @desc Get the vendor's current orders
+router.get("/:id/currentOrders", (req, res, next) => {
+	let arr = [];
+	Vendor.findById(req.params.id)
+		.then(vendor => {
+			console.log(vendor.currentOrders);
+			vendor.currentOrders.forEach(async order => {
+				let promise = new Promise(function(resolve, reject) {
+					Order.findById(order).then(menuItem => {
+						return resolve(order);
 					});
 				});
 				promise.then(res => {
