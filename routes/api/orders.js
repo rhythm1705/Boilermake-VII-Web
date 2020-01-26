@@ -6,7 +6,7 @@ const Order = require("../../models/Order");
 
 // Create an order
 router.post("/", (req, res, next) => {
-	console.log('ORDER CREATION', req)
+	console.log("ORDER CREATION", req);
 	Order.create(req.body)
 		.then(order => {
 			res.send(order);
@@ -67,7 +67,7 @@ router.get("/", (req, res, next) => {
 });
 
 // Get all orders by ids
-router.get("/", (req, res, next) => {
+router.get("/user", (req, res, next) => {
 	let orders = [];
 	req.body.orderIds.forEach(id => {
 		Order.findById(req.params.id)
